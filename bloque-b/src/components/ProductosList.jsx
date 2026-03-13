@@ -1,4 +1,4 @@
-import UseProductos from '../hooks/productos/useProductos';
+import UseProductos from '../hooks/productos/UseProductos';
 import Messages from './Messages'
 import ProductItem from './ProductItem';
 

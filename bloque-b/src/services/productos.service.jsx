@@ -1,4 +1,3 @@
-import Messages from '../components/Messages';
 
 const API = 'http://127.0.0.1:8000/api/productos'
 
@@ -28,6 +27,7 @@ export const FetchCreateProducto = async producto => {
         console.log(error);
         throw new Error('Error al crear el producto')
     };
+    
     const data = await res.json();
     
     return data;
