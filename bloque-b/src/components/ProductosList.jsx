@@ -13,12 +13,11 @@ const ProductosList = ()=> {
     return (
 
         <ul>
-
             {
                 data.map(producto => (
                     <li key={producto.id}> 
                     
-                        <ProductItem nombre={producto.nombre} precio={producto.precio} descripcion={producto.descripcion} />
+                        <ProductItem nombre={producto.nombre} precio={producto.precio} descripcion={producto.descripcion} idProducto={producto.id} disponible={producto.disponible}/>
                     </li >
                 ))
             }

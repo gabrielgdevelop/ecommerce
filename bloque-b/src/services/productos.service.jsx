@@ -33,4 +33,20 @@ export const FetchCreateProducto = async producto => {
     return data;
 }
 
+export const FetchUpdateProductos = async (id, producto) => {
+
+    const res = await fetch(`${API}/${id}`, {
+
+        method: 'PUT',
+        headers: {
+
+            'Content-type': 'application/json',
+            'Accept' : 'application/json'
+        },
+        body: JSON.stringify(producto)
+    })
+
+    if (!res.ok) throw new Error('No se logró actualizar el producto')
+}
+
 export default FetchProductosService;

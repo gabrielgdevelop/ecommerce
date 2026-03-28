@@ -25,9 +25,9 @@ class ProductosController extends Controller
         $datos_productos = $request->all();
         
         Productos::create($datos_productos);
-        // return response()->json(['message' => 'Producto creado correctamente'], 201);
+        return response()->json(['message' => 'Producto creado correctamente'], 201);
 
-    }
+    }   
 
     /**
      * Display the specified resource.

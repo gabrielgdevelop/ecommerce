@@ -1,7 +1,16 @@
 import ProductIcon from '../assets/imgs/product-icon.webp'
 
-const ProductItem = ({nombre, precio, descripcion}) => {
+import { useState } from 'react';
 
+const ProductItem = ({nombre, precio, descripcion, idProducto, disponible}) => {
+    const [openDialog, setOpenDialog] = useState(false);
+    const [form, setForm] = useState({
+        nombre,
+        descripcion,
+        precio,
+        disponible
+    });
+    
     return (
         <article className="flex h-42 items-center">
             <div>
@@ -13,8 +22,38 @@ const ProductItem = ({nombre, precio, descripcion}) => {
                     <p className="text-lg font-normal">{nombre} - {descripcion}</p>
                 </header>
                 <p className="text-2xl font-bold text-green-500">${precio}</p>
+                <button className="bg-yellow-400 p-2 rounded" onClick={() => setOpenDialog(!openDialog)}>editar</button>
+                <dialog id={`dialog-${idProducto}`} open={openDialog}
+                className="bg-black/60 w-full h-full">
+                    <div className="bg-white/90">
+
+                        <h2>edita el producto</h2>
+                        <form className="flex flex-col gap-2">
+
+                            <input type="text" placeholder="Gafas de sol"
+                            className="p-2 bg-blue-500/40 rounded" value={form.nombre}
+                            onChange={(e)=> setForm({...form, nombre: e.target.value})}/>
+                            <input type="text" placeholder="Descripción"
+                            className="p-2 bg-blue-500/40 rounded" value={form.descripcion}
+                            onChange={e => setForm({...form, descripcion: e.target.value})}/>
+                            <input type="number" step="any" placeholder="Precio"
+                            className="p-2 bg-blue-500/40 rounded" value={form.precio}
+                            onChange={e => setForm({...form, precio: e.target.value})}/>
+                            <label htmlFor="select_disponibilidad">Disponibilidad:</label>
+                            <select name="" id="select_disponibilidad">
+                                <option value="1">SI</option>
+                                <option value="0">NO</option>
+                            </select>
+                            <div>
+                                <input type="submit" value={'Guardar'} onClick={()=> useUpdateProducto(idProducto, form)}/>
+                                <input type="button" onClick={() => setOpenDialog(!openDialog)} value={'cancelar'}/>
+                            </div>
+                        </form>
+                    </div>
+                </dialog>
             </div>
         </article>
+        
     )
 }
 

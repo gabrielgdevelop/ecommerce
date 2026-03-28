@@ -24,12 +24,11 @@ const BtnCreate = ()=> {
     }
 
     if (isPending) return 'a la espera bb'
-    if (isError) return 'rolo de error que tienes oyo'
 
     return (
         <>
         
-            <button onClick={()=> setOPenDialog(!openDialog)} className="bg-green-500 text-white p-2 cursor-pointer rounded-md mt-5">Crear Producto</button>
+            <button onClick={()=> setOPenDialog(!openDialog)} className="bg-(--color-blue) text-white p-2 cursor-pointer rounded-md mt-5">Crear Producto</button>
 
             <dialog open={openDialog} className="absolute w-full h-full top-0 bg-black/30">
                 
