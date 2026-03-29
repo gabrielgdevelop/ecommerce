@@ -1,24 +1,23 @@
 import ProductIcon from '../assets/imgs/product-icon.webp'
 // HOOKS Personalizados
-import { use, useState } from 'react';
+import { useState } from 'react';
 import useUpdateProducto from '../hooks/productos/useUpdateProducto';
 
 const ProductItem = ({nombre, precio, descripcion, id, disponible}) => {
     const [openDialog, setOpenDialog] = useState(false);
     const { mutate, isPending, isError } = useUpdateProducto();
     const [form, setForm] = useState({
-        id,
         nombre,
         descripcion,
         precio,
         disponible
     });
-    const handleSubmit = (e) => {
-        
 
+    const handleSubmit = e => {
+        
         e.preventDefault();
         
-        mutate(form.id);
+        mutate({id, form});
 
         setOpenDialog(false);
     }

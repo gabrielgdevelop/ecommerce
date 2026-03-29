@@ -32,11 +32,10 @@ class ProductosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Productos $productos)
+    public function show($id)
     {
-
-        $producto = Productos::find($productos->id);
-
+        $producto = Productos::find($id);
+        
         return response()->json(['data' => $producto], 200);
     
     }
@@ -44,13 +43,11 @@ class ProductosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, $id)
     {
-        
         $datos_productos = $request->except(['_token', '_method']);
-
-        $productos->update($datos_productos);
-        $productos->save();
+        
+        Productos::where('id','=', $id)->update($datos_productos['form']);
 
         return response()->json(['message' => 'Producto actualizado correctamente'], 200);
     }

@@ -1,15 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FetchUpdateProductos } from "../../services/productos.service";
 
-const useUpdateProducto = (data) => {
+const useUpdateProducto = () => {
     
     const queryClient = useQueryClient();
     
     return useMutation({
 
-        mutationFn: ()=> FetchUpdateProductos(data.id, data),
-
-        onMutate: async (newData) => {
+        // 1. petición fetch
+        mutationFn: FetchUpdateProductos,
+        // 2. optimización de la UI (obtener estado viejo y obtener el estado nuevo para trabajar con ambos casos)
+        onMutate: async (updateData) => {
 
             await queryClient.cancelQueries({ queryKey: ['productos'] });
             const previousData = queryClient.getQueryData(['productos']);
@@ -18,20 +19,20 @@ const useUpdateProducto = (data) => {
 
                 return old.map(producto => 
 
-                    producto.id === newData.id ? 
-                    { ...producto, ...newData } 
+                    producto.id === updateData.id ? 
+                    { ...producto, ...updateData } 
                     : producto
                 )
             });
 
             return { previousData }
         },
-
-        onError: (err, newData, context) => {
+        // 3. En caso de error, volver al estado anterior
+        onError: (err, updateData, context) => {
 
             queryClient.setQueryData(['productos'], context.previousData);
         },
-
+        // 4. En caso de éxito o error, invalidar la consulta para obtener los datos actualizados
         onSettled: () => {
 
             queryClient.invalidateQueries({ queryKey: ['productos'] });
