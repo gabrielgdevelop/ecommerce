@@ -1,16 +1,28 @@
 import ProductIcon from '../assets/imgs/product-icon.webp'
+// HOOKS Personalizados
+import { use, useState } from 'react';
+import useUpdateProducto from '../hooks/productos/useUpdateProducto';
 
-import { useState } from 'react';
-
-const ProductItem = ({nombre, precio, descripcion, idProducto, disponible}) => {
+const ProductItem = ({nombre, precio, descripcion, id, disponible}) => {
     const [openDialog, setOpenDialog] = useState(false);
+    const { mutate, isPending, isError } = useUpdateProducto();
     const [form, setForm] = useState({
+        id,
         nombre,
         descripcion,
         precio,
         disponible
     });
-    
+    const handleSubmit = (e) => {
+        
+
+        e.preventDefault();
+        
+        mutate(form.id);
+
+        setOpenDialog(false);
+    }
+
     return (
         <article className="flex h-42 items-center">
             <div>
@@ -23,7 +35,7 @@ const ProductItem = ({nombre, precio, descripcion, idProducto, disponible}) => {
                 </header>
                 <p className="text-2xl font-bold text-green-500">${precio}</p>
                 <button className="bg-yellow-400 p-2 rounded" onClick={() => setOpenDialog(!openDialog)}>editar</button>
-                <dialog id={`dialog-${idProducto}`} open={openDialog}
+                <dialog id={`dialog-${id}`} open={openDialog}
                 className="bg-black/60 w-full h-full">
                     <div className="bg-white/90">
 
@@ -45,7 +57,7 @@ const ProductItem = ({nombre, precio, descripcion, idProducto, disponible}) => {
                                 <option value="0">NO</option>
                             </select>
                             <div>
-                                <input type="submit" value={'Guardar'} onClick={()=> useUpdateProducto(idProducto, form)}/>
+                                <input type="submit" value={'Guardar'} onClick={handleSubmit}/>
                                 <input type="button" onClick={() => setOpenDialog(!openDialog)} value={'cancelar'}/>
                             </div>
                         </form>

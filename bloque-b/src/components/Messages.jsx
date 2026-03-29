@@ -14,11 +14,11 @@ Messages.IsLoading = ({message})=> {
     )
 }
 
-Messages.IsError = ({error})=> {
+Messages.IsError = ({message})=> {
 
     return (
-        <p className="p-2  text-red-500 rounded w-fit m-auto mt-10">
-            {error.message}
+        <p className="p-2 text-red-500 rounded bg-red-500/30 w-fit m-auto mt-10">
+            {message}
         </p>
     )
 }

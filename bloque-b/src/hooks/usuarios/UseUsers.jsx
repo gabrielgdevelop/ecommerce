@@ -33,7 +33,6 @@ const UseUsers = ()=> {
     const [state, dispatch] = useReducer(reducer, initialValue);
 
     useEffect(()=> {
-        console.log('efecto ejecutado')
         dispatch({type : 'FETCH_INITIAL'});
 
         UserService()

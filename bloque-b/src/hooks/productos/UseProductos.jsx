@@ -7,7 +7,7 @@ const UseProductos = ()=> {
 
         queryKey: ['productos'],
         queryFn: FetchProductosService,
-        retry: 2,
+        retry: 1,
     });
     
     return { data, isLoading, isError, error}

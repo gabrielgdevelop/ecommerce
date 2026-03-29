@@ -46,6 +46,7 @@ class ProductosController extends Controller
      */
     public function update(Request $request, Productos $productos)
     {
+        
         $datos_productos = $request->except(['_token', '_method']);
 
         $productos->update($datos_productos);
