@@ -7,7 +7,7 @@ const useUpdateProducto = () => {
     
     return useMutation({
 
-        // 1. petición fetch
+        // 1. petición fetchs
         mutationFn: FetchUpdateProductos,
         // 2. optimización de la UI (obtener estado viejo y obtener el estado nuevo para trabajar con ambos casos)
         onMutate: async (updateData) => {
