@@ -46,11 +46,26 @@ export const FetchUpdateProductos = async ({id, ...producto}) => {
         body: JSON.stringify(producto)
     })
     
+    if (!res.ok) throw new Error('No se logró actualizar el producto');
+    
     const data = await res.json();
     
     return data.data;
+}
 
-    // if (!res.ok) throw new Error('No se logró actualizar el producto');
+export const FetchDeleteProducto = async id => {
+
+    const res = await fetch(`${API}/${id}`, {
+        method: 'DELETE',
+        headers: {
+
+            'Accept' : 'application/json',
+        },
+    });
+
+    if (!res.ok) throw new Error('No se logró eliminar el producto');
+
+    return id;
 }
 
 export default FetchProductosService;

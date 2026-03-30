@@ -2,10 +2,15 @@ import ProductIcon from '../assets/imgs/product-icon.webp'
 // HOOKS Personalizados
 import { useState } from 'react';
 import useUpdateProducto from '../hooks/productos/useUpdateProducto';
+import useDeleteProducto from '../hooks/productos/useDeleteProducto';
 
 const ProductItem = ({nombre, precio, descripcion, id, disponible}) => {
     const [openDialog, setOpenDialog] = useState(false);
     const { mutate, isPending, isError } = useUpdateProducto();
+    const { 
+        mutate : mutateDel,
+        isPending: isPendingDel 
+    } = useDeleteProducto();
     const [form, setForm] = useState({
         nombre,
         descripcion,
@@ -22,6 +27,11 @@ const ProductItem = ({nombre, precio, descripcion, id, disponible}) => {
         setOpenDialog(false);
     }
 
+    const handleDel = () => {
+
+        mutateDel(id);
+    }
+
     return (
         <article className="flex h-42 items-center">
             <div>
@@ -33,7 +43,11 @@ const ProductItem = ({nombre, precio, descripcion, id, disponible}) => {
                     <p className="text-lg font-normal">{nombre} - {descripcion}</p>
                 </header>
                 <p className="text-2xl font-bold text-green-500">${precio}</p>
-                <button className="bg-yellow-400 p-2 rounded" onClick={() => setOpenDialog(!openDialog)}>editar</button>
+                <div className="flex gap-2">
+
+                    <button className="bg-yellow-400 p-2 rounded" onClick={() => setOpenDialog(!openDialog)}>editar</button>
+                    <button className="bg-red-400 p-2 rounded" onClick={handleDel} disabled={isPendingDel}>eliminar</button>
+                </div>
                 <dialog id={`dialog-${id}`} open={openDialog}
                 className="bg-black/60 w-full h-full">
                     <div className="bg-white/90">
